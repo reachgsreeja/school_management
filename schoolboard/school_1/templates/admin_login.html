@@ -1,0 +1,71 @@
+{% load static %}
+<html class="h-100" lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="{% static '/admin/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="h-100" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
+      data-headerbg="color_1" data-sidebar-style="full" data-sibebarbg="color_1" data-sidebar-position="static"
+      data-header-position="static" data-container="wide" direction="ltr">
+
+<!--*******************
+    Preloader start
+********************-->
+<div id="preloader" style="display: none;">
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+</div>
+<!--*******************
+    Preloader end
+********************-->
+
+
+<p>{{error_message}}</p>
+<form method="POST" action="/admission/login/">
+    {% csrf_token %}
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <a class="text-center" href="index.html"><h4>LOGIN</h4></a>
+                                <form class="mt-5 mb-5 login-input">
+                                    <div class="form-group">
+                                        <label for="username"></label>
+                                        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd"></label>
+                                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
+                                    </div>
+                                    <button class="btn login-form__btn submit w-100">Sign In</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="{% static 'plugins/common/common.min.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+    <script src="{% static 'js/gleek.js' %}"></script>
+    <script src="{% static 'js/styleSwitcher.js' %}"></script>
+
+</body>
+</html>

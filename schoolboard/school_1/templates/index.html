@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <!-- Pignose Calender -->
+    <link href="{% static './admin/plugins/pg-calendar/css/pignose.calendar.min.css' %}" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="{% static './admin/plugins/chartist/css/chartist.min.css' %}">
+    <link rel="stylesheet" href="{% static './admin/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}">
+    <!-- Custom Stylesheet -->
+    <link href="{% static '/admin/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+{% if user.is_authenticated %}
+<!--*******************
+    Preloader start
+********************-->
+<div id="preloader">
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+</div>
+<!--*******************
+    Preloader end
+********************-->
+
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div class="nav-header">
+        <div class="brand-logo">
+            <a href="/admission/homepage/">
+                <b class="logo-abbr"><img src="{% static 'admin/img/logo.png' %}" alt=""> </b>
+                <span class="logo-compact"><img src="{% static 'admin/img/logo-compact.png' %}" alt=""></span>
+                <span class="brand-title">
+                        <img src="{% static 'admin/img/logo-text.png' %}" alt="">
+                    </span>
+            </a>
+        </div>
+    </div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div class="header">
+        <div class="header-content clearfix">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="toggle-icon"><i class="icon-menu"></i></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <ul class="clearfix">
+                    <!--                    <li class="icons dropdown d-none d-md-flex">-->
+                    <!--                        <a href="{% static 'javascript:void(0)' %}" class="log-user" data-toggle="dropdown">-->
+                    <!--                            <span>English</span> <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>-->
+                    <!--                        </a>-->
+                    <!--                        <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">-->
+                    <!--                            <div class="dropdown-content-body">-->
+                    <!--                                <ul>-->
+                    <!--                                    <li><a href="{% static 'javascript:void()' %}">English</a></li>-->
+                    <!--                                    <li><a href="{% static 'javascript:void()' %}">Dutch</a></li>-->
+                    <!--                                </ul>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                    <li class="icons dropdown">
+                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                            <span class="activity active"></span>
+                            <img src="{% static '/admin/img/user/1.png' %}" height="40" width="40" alt="">
+                        </div>
+                        <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="dropdown-content-body">
+                                <ul>
+                                    <li>
+                                        <a href="{% static 'app-profile.html' %}"><i
+                                                class="icon-user"></i><span>Profile</span></a>
+                                    </li>
+                                    <hr class="my-2">
+                                    <li><a href="/admission/logout/"><i class="icon-key"></i><span>Logout</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label">Pages</li>
+                <li>
+                    <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
+                        <i class="icon-notebook menu-icon"></i><span class="nav-text">Student Portal</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="navbar-link" href="/admission/student/register/">Student Registration</a></li>
+                        <li><a class="navbar-link" href="/admission/student/list/">List Of Students</a></li>
+                    </ul>
+                <li>
+                    <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
+                        <i class="icon-notebook menu-icon"></i><span class="nav-text">Teacher Portal</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="navbar-link" href="/admission/teacher/register/">Teacher Registration</a></li>
+                        <li><a class="navbar-link" href="/admission/teacher/list/">List Of Teachers</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
+                        <i class="icon-notebook menu-icon"></i><span class="nav-text">Marks List</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="navbar-link" href="/admission/student/marks/">Marks Entry Sheet</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/">Student Marks list</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
+                        <i class="icon-notebook menu-icon"></i><span class="nav-text">Classes</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="navbar-link" href="/admission/marks/list/1/">Class1</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/2/">Class2</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/3/">Class3</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/4/">Class4</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/5/">Class5</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/6/">Class6</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/7/">Class7</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/8/">Class8</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/9/">Class9</a></li>
+                        <li><a class="navbar-link" href="/admission/marks/list/10/">Class10</a></li>
+                        {% else %}
+                        <li><a href="/admission/login/">Sign In</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        {% block content %}
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card gradient-3">
+                        <div class="card-body">
+                            <h3 class="card-title text-white">Total Students</h3>
+                            <div class="d-inline-block">
+                                <h2 class="text-white">{{no_of_students}}</h2>
+                                <p class="text-white mb-0">For Year 2019-2020</p>
+                            </div>
+                            <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card gradient-3">
+                        <div class="card-body">
+                            <h3 class="card-title text-white">Total Teachers</h3>
+                            <div class="d-inline-block">
+                                <h2 class="text-white">{{no_of_teachers}}</h2>
+                                <p class="text-white mb-0">For Year 2019-2020</p>
+                            </div>
+                            <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card gradient-3">
+                        <div class="card-body">
+                            <h3 class="card-title text-white">School Toppper</h3>
+                            <div class="d-inline-block">
+                                <h3 class="text-white">{{topper_name}}</h3>
+                                <h3 class="text-white">{{topper_score}}</h3>
+                                <h2 class="text-white"></h2>
+                                <p class="text-white mb-0">For Year 2019-2020</p>
+                            </div>
+                            <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="{% static '/admin/plugins/common/common.min.js' %}"></script>
+    <script src="{% static '/admin/js/custom.min.js' %}"></script>
+    <script src="{% static '/admin/js/settings.js' %}"></script>
+    <script src="{% static '/admin/js/gleek.js' %}"></script>
+    <script src="{% static '/admin/js/styleSwitcher.js' %}"></script>
+
+    <!-- Chartjs -->
+    <script src="{% static './admin/plugins/chart.js/Chart.bundle.min.js' %}"></script>
+    <!-- Circle progress -->
+    <script src="{% static './admin/plugins/circle-progress/circle-progress.min.js' %}"></script>
+    <!-- Datamap -->
+    <script src="{% static './admin/plugins/d3v3/index.js' %}"></script>
+    <script src="{% static './admin/plugins/topojson/topojson.min.js' %}"></script>
+    <script src="{% static './admin/plugins/datamaps/datamaps.world.min.js' %}"></script>
+    <!-- Morrisjs -->
+    <script src="{% static './admin/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static './admin/plugins/morris/morris.min.js' %}"></script>
+    <!-- Pignose Calender -->
+    <script src="{% static './admin/plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static './admin/plugins/pg-calendar/js/pignose.calendar.min.js' %}"></script>
+    <!-- ChartistJS -->
+    <script src="{% static './admin/plugins/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static './admin/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}"></script>
+
+
+    <script src="{% static './admin/js/dashboard/dashboard-1.js' %}"></script>
+
+</body>
+
+</html>

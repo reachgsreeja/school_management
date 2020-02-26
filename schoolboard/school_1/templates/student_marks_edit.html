@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--<h3 align="center">STUDENT REGISTRATION FORM</h3>-->
+
+
+<form method="POST" class="post-form" action="/admission/student/marks/edit/{{marks_set.id}}/"/>
+{% csrf_token %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Student Marks Edit Page</h4>
+                    <div class="form-validation">
+                        <form class="form-valide" action="#" method="post" novalidate="novalidate">
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="student_name">Student Name<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="student_name"
+                                           name="student_name" value="{{marks_set.student.first_name}} {{marks_set.student.last_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="semester">Student Class<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="semester"
+                                           name="semester" value="{{marks_set.semester}}">
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="telugu">Telugu <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="telugu" name="telugu"
+                                           value="{{marks_set.telugu}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 m-t-20" for="hindi">Hindi<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" value="{{marks_set.hindi}}"
+                                           id="hindi" name="hindi">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="english">English<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="english"
+                                           name="english" value="{{marks_set.english}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="maths">Maths <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="maths"
+                                           name="maths" value="{{marks_set.maths}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="science">Science<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="science"
+                                           name="science" value="{{marks_set.science}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="social">Social<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="social"
+                                           name="social" value="{{marks_set.social}}">
+                                </div>
+                            </div>
+                            <div class="rounded-button">
+                                <div class="col-lg-8 ml-auto">
+                                    <button type="submit" class="btn mb-1 btn-rounded btn-success">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" action="/admission/student/marks/">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Student Marks Page</h4>
+
+                        <div class="form-validation">
+                            <form class="form-valide" action="#" method="post" novalidate="novalidate">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="student_name">Student<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="student_name" id="student_name">
+                                            <option>Select Student</option>
+                                            {% for student in student_list %}
+                                            <option value="{{student.id}}">{{student.first_name}} {{student.last_name}} {{student.student_class}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="semester">Semester<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="semester" name="semester" required>
+                                            <option>Select Semester</option>
+                                            <option>Quarterly Exam</option>
+                                            <option>Half Yearly Exam</option>
+                                            <option>Yearly Exam</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="telugu">Telugu <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="telugu" max="100" min="0"
+                                               name="telugu" placeholder="Enter Telugu Marks.." required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="hindi">Hindi<span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="hindi" name="hindi" max="100" min="0"
+                                               placeholder="Enter Hindi Marks..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="English">English <span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="english" name="english" max="100" min="0"
+                                               placeholder="Enter English Marks..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="maths">Maths <span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="maths" name="maths" max="100" min="0"
+                                               placeholder="Enter Maths Marks..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="science">Science<span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="science" name="science" max="100" min="0"
+                                               placeholder="Enter Science Marks..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="social">Social<span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="social" name="social" max="100" min="0"
+                                               placeholder="Enter Social Marks..">
+                                    </div>
+                                </div>
+                                <div class="rounded-button">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn mb-1 btn-rounded btn-success">Save Marks</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

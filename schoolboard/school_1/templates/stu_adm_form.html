@@ -1,0 +1,195 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" action="/admission/student/register/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Student Registration Page</h4>
+                        <div class="form-validation">
+                            <form class="form-valide" action="#" method="post" novalidate="novalidate">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="student_image">Student Profile
+                                        Photo<span
+                                                class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        Select image to upload:
+                                        <input type="file" name="student_image" id="student_image">
+                                        <img src="{{student_image.url}}">
+                                        <button type="submit" name="submit">Upload File</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="first_name">First Name <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="first_name"
+                                               name="first_name" placeholder="Enter firstname.." required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="last_name">Last Name <span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="last_name" name="last_name"
+                                               placeholder="Enter a lastname..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="gender">Gender
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" id="gender" name="gender" value="Male"/>Male</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" id="gender" name="gender" value="Female"/>Female</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 m-t-20" for="date_of_birth">Date of Birth<span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="date" class="form-control" placeholder="2020-02-02"
+                                               id="date_of_birth" name="date_of_birth" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="student_class">Student Class<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="student_class" name="student_class" required>
+                                            <option>Class</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="acadamic_year">Acadamic Year<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" id="acadamic_year" max="9999"
+                                               min="2020"
+                                               name="acadamic_year" placeholder="2020" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="father_name">Father Name <span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="father_name"
+                                               name="father_name" placeholder="Enter fathername..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="mother_name">Mother Name <span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="mother_name"
+                                               name="mother_name" placeholder="Enter mothername..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="contact_info">Phone<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="contact_info" maxlength="10"
+                                               name="contact_info" placeholder="212-999-0000" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="email_id">Email <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="email_id" name="email_id"
+                                               placeholder="Your valid email.." required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="address1">Address1<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" id="address1" name="address1" rows="5"
+                                                  placeholder="Enter your primary address here" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="address2">Address2<span
+                                            class="text-danger"></span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <textarea class="form-control" id="address2" name="address2" rows="5"
+                                                  placeholder="Enter your secondary address here"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="city">City<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="city" name="city"
+                                               placeholder="Hyderabad" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="state">State <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="state" name="state"
+                                               placeholder="Telangana" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="country_code">Country<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="country_code"
+                                               name="country_code" placeholder="India" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="postal_code">Pin Code
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="postal_code" maxlength="6"
+                                               name="postal_code" placeholder="500028" required>
+                                    </div>
+                                </div>
+                                <div class="rounded-button">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn mb-1 btn-rounded btn-success">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

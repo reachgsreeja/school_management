@@ -1,0 +1,13 @@
+{% load static %}
+{% block content %}
+<body>
+    <li>
+        <form class="post-form" method="POST" action="/admission/teacher/delete/{{teacher.id}}/">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <button type="delete" value="delete Entry"/>delete</button>
+        </form>
+    </li>
+
+</body>
+{% endblock %}
