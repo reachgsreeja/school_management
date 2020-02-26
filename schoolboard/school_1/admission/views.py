@@ -268,6 +268,7 @@ def student_filter(request, id):
             class_highest.append(num.total_marks())
             student_name.append(num.student.first_name)
         class_highest_score = dict(zip(student_name, class_highest))
+        print('dict', class_highest_score)
         class_topper = max(class_highest_score, key=class_highest_score.get)
         class_topper_name = max(class_highest_score.values())
         print(class_topper)
