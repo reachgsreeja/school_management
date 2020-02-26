@@ -176,6 +176,7 @@ def admin_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect('/admission/homepage/')
@@ -201,6 +202,7 @@ def index(request):
         student_marks.append(marks.total_marks())
         student_names.append(marks.student.first_name)
     student_scores = dict(zip(student_names, student_marks))
+    print(student_scores)
     topper_name = max(student_scores, key=student_scores.get)
     topper_score = max(student_scores.values())
     context = {'no_of_students': no_of_students,
@@ -250,6 +252,7 @@ def student_marks_edit(request, pk):
         marks.science = request.POST.get('science')
         marks.social = request.POST.get('social')
         marks.semester = request.POST.get('semester')
+        print(request.POST)
         marks.save()
         return redirect('/admission/marks/list/')
     if request.method == "GET":

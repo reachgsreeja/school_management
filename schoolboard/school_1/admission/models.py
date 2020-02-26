@@ -28,7 +28,7 @@ class StudentParentInfo(models.Model):
     postal_code = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.father_name
+        return self.father_name + self.email_id
 
 
 class TeacherInfo(models.Model):
@@ -47,7 +47,7 @@ class TeacherInfo(models.Model):
     postal_code = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.first_name
+        return self.first_name + self.gender
 
 class Results(models.Model):
     semester_choices = (
