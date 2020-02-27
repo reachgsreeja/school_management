@@ -196,6 +196,7 @@ def index(request):
     no_of_students = StudentInfo.objects.all().count()
     no_of_teachers = TeacherInfo.objects.all().count()
     high_score = Results.objects.all()
+
     student_marks = []
     student_names = []
     for marks in high_score:
@@ -225,9 +226,10 @@ def student_marks(request):
         semester = request.POST['semester']
         obj_marks = Results.objects.create(student=student, telugu=telugu, hindi=hindi, english=english, maths=maths, science=science, social=social, semester=semester)
         obj_marks.save()
+        print(request.POST)
         return redirect('/admission/marks/list/')
     if request.method == 'GET':
-        student_list = StudentInfo.objects.all()
+        student_list = Results.objects.all()
         context = {"student_list": student_list}
         return render(request, 'student_marks_page.html', context)
 
@@ -270,12 +272,10 @@ def student_filter(request, id):
         for num in marks_set:
             class_highest.append(num.total_marks())
             student_name.append(num.student.first_name)
+            print(num.student.student_id)
         class_highest_score = dict(zip(student_name, class_highest))
-        print('dict', class_highest_score)
         class_topper = max(class_highest_score, key=class_highest_score.get)
         class_topper_name = max(class_highest_score.values())
-        print(class_topper)
-        print(class_topper_name)
         context = {'marks_set': marks_set,
                    'class_topper': class_topper,
                    'class_topper_name': class_topper_name}
