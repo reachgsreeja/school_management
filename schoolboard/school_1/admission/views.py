@@ -8,6 +8,12 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Count
 import datetime
 
+
+class ObjectDoesNotExist(Exception):
+    """The requested object does not exist"""
+    silent_variable_failure = True
+
+
 def welcome(request):
     return render(request, 'admission/welcome.html')
 
@@ -210,16 +216,26 @@ def index(request):
 def student_marks(request):
     if request.method == "POST":
         student = StudentInfo.objects.get(id=int(request.POST['student_name']))
-        telugu = request.POST['telugu']
-        hindi = request.POST['hindi']
-        english = request.POST['english']
-        maths = request.POST['maths']
-        science = request.POST['science']
-        social = request.POST['social']
-        semester = request.POST['semester']
-        obj_marks = Results.objects.create(student=student, telugu=telugu, hindi=hindi, english=english, maths=maths, science=science, social=social, semester=semester)
-        obj_marks.save()
-        return redirect('/admission/marks/list/')
+        student_id = request.POST.get('student_name')
+        semester = request.POST.get('semester')
+        academic_year = request.POST.get('academic_year')
+        try:
+            print(f"student_id,semester, academic_year ---- {student_id},{semester}, {academic_year} ")
+            Results.objects.get(student__acadamic_year=academic_year, student_id=student_id, semester=semester)
+            context = {"error": "Student details exists with given data"}
+            return render(request, 'student_marks_page.html', context)
+
+        except ObjectDoesNotExist:
+            telugu = request.POST['telugu']
+            hindi = request.POST['hindi']
+            english = request.POST['english']
+            maths = request.POST['maths']
+            science = request.POST['science']
+            social = request.POST['social']
+            semester = request.POST['semester']
+            obj_marks = Results.objects.create(student=student, telugu=telugu, hindi=hindi, english=english, maths=maths, science=science, social=social, semester=semester)
+            obj_marks.save()
+            return redirect('/admission/marks/list/')
     if request.method == 'GET':
         student_list = StudentInfo.objects.all()
         context = {"student_list": student_list}
@@ -232,6 +248,7 @@ def marks_list(request):
     if request.method == 'GET':
         marks_set = Results.objects.all()
         # marks = Results.objects.values('student_id').annotate(num_count=Count('student_id'))
+        # print(marks)
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
