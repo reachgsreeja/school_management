@@ -1,41 +1,15 @@
-<div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body pb-0 d-flex justify-content-between">
-                                        <div>
-                                            <h4 class="mb-1">Welcome To Vasavi Public School</h4>
-                                            <p>Hurry We are Hiring Teachers</p>
-                                            <p>Admissions are Open for Students</p>
-                                        </div>
-                                        <div>
-                                            <ul>
-                                                <p>Click Below For Teacher Registration</p>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="/admission/teacher/register/">Register Here</a></li>
-                                                <p>Click Below For Student Enrollment</p>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="/admission/student/register/">Student Enroll</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="w-100 mr-2">
-                                                <h6>Pixel 2</h6>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-danger" style="width: 40%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="ml-2 w-100">
-                                                <h6>iPhone X</h6>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-primary" style="width: 80%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+def subjectView(request):
+    subjectList = Subject.objects.values('pk', 'name')
+    side_bar = {'Home':'home', 'Admin' : 'admin:index'}
+    return render(request, 'StudentsMain.html', {'subjects' : subjectList, 'side_bar' : side_bar})
+
+def getMarksDetailsView(request, subjectName):
+    subjectStudentDetails = StudentMarks.objects.filter(subject__name=subjectName).values('student__firstname', 'student__lastname', 'subject__name', 'marks')
+    avgSubjectMarks = Subject.objects.filter(name=subjectName).annotate(average_rating=Avg('studentmarks__marks'))[0].average_rating
+    side_bar = {'Home':'home', 'Admin' : 'admin:index'}
+    ranges = [ '0-40', '41-60', '61-80', '81-90', '91-100']
+    marksRange = {}
+    for eachRange in ranges:
+        count = StudentMarks.objects.filter(subject__name=subjectName).filter(marks__range=(eachRange.split('-'))).count()
+        marksRange[eachRange] = count
+    return render(request, 'StudentSubjectDetails.html', {'subjectStudentDetails' : subjectStudentDetails, 'avgSubjectMarks' : avgSubjectMarks, 'side_bar' : side_bar, 'marksRange' : marksRange, 'subjectName' : subjectName.title() })

@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Count
 import datetime
 
 def welcome(request):
@@ -176,7 +177,7 @@ def admin_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
-        print(user)
+        print(request.POST)
         if user is not None:
             login(request, user)
             return redirect('/admission/homepage/')
@@ -196,14 +197,12 @@ def index(request):
     no_of_students = StudentInfo.objects.all().count()
     no_of_teachers = TeacherInfo.objects.all().count()
     high_score = Results.objects.all()
-
     student_marks = []
     student_names = []
     for marks in high_score:
         student_marks.append(marks.total_marks())
         student_names.append(marks.student.first_name)
     student_scores = dict(zip(student_names, student_marks))
-    print(student_scores)
     topper_name = max(student_scores, key=student_scores.get)
     topper_score = max(student_scores.values())
     context = {'no_of_students': no_of_students,
@@ -217,6 +216,7 @@ def index(request):
 def student_marks(request):
     if request.method == "POST":
         student = StudentInfo.objects.get(id=int(request.POST['student_name']))
+        print(student)
         telugu = request.POST['telugu']
         hindi = request.POST['hindi']
         english = request.POST['english']
@@ -226,10 +226,10 @@ def student_marks(request):
         semester = request.POST['semester']
         obj_marks = Results.objects.create(student=student, telugu=telugu, hindi=hindi, english=english, maths=maths, science=science, social=social, semester=semester)
         obj_marks.save()
-        print(request.POST)
+        print(semester)
         return redirect('/admission/marks/list/')
     if request.method == 'GET':
-        student_list = Results.objects.all()
+        student_list = StudentInfo.objects.all()
         context = {"student_list": student_list}
         return render(request, 'student_marks_page.html', context)
 
@@ -239,6 +239,8 @@ def student_marks(request):
 def marks_list(request):
     if request.method == 'GET':
         marks_set = Results.objects.all()
+        marks = Results.objects.values('student_id').annotate(num_count=Count('student_id'))
+        print(marks)
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
@@ -254,6 +256,7 @@ def student_marks_edit(request, pk):
         marks.science = request.POST.get('science')
         marks.social = request.POST.get('social')
         marks.semester = request.POST.get('semester')
+        print('sem', marks.semester)
         print(request.POST)
         marks.save()
         return redirect('/admission/marks/list/')
@@ -267,15 +270,18 @@ def student_marks_edit(request, pk):
 def student_filter(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(student__student_class=id)
+        query = Results.objects.values('student__first_name').count()
+        print('here we are',query)
         class_highest = []
         student_name = []
+        print("hello there")
         for num in marks_set:
             class_highest.append(num.total_marks())
             student_name.append(num.student.first_name)
-            print(num.student.student_id)
         class_highest_score = dict(zip(student_name, class_highest))
         class_topper = max(class_highest_score, key=class_highest_score.get)
         class_topper_name = max(class_highest_score.values())
+
         context = {'marks_set': marks_set,
                    'class_topper': class_topper,
                    'class_topper_name': class_topper_name}
