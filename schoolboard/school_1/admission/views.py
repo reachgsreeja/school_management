@@ -26,7 +26,6 @@ def stu_adm_form(request):
         fs = FileSystemStorage()
         file_name = fs.save(student_image.name, student_image)
         url = fs.url(file_name)
-        print(url)
         student_set = StudentInfo.objects.create(first_name=first_name, last_name=last_name, student_class=student_class,
                                                  date_of_birth=date_of_birth, acadamic_year=acadamic_year, gender=gender,
                                                  student_image=student_image)
@@ -102,7 +101,6 @@ def student_edit(request, pk):
         student.acadamic_year = request.POST.get('acadamic_year')
         student.date_of_birth = request.POST.get('date_of_birth')
         student.student_image = request.FILES.get('student_image')
-        # print(request.POST)
         student.save()
         parent.father_name = request.POST.get('father_name')
         parent.mother_name = request.POST.get('mother_name')
@@ -115,7 +113,6 @@ def student_edit(request, pk):
         parent.country_code = request.POST.get('country_code')
         parent.postal_code = request.POST.get('postal_code')
         parent.save()
-        print(parent.student_id)
         return redirect('/admission/student/list/', pk=parent.pk)
     if request.method == 'GET':
         parent_set = StudentParentInfo.objects.get(pk=pk)
@@ -129,7 +126,6 @@ def student_edit(request, pk):
 @login_required(login_url='/admission/login/')
 def student_delete(request, pk):
     if request.method == "GET":
-        print("inside student delete")
         parent = get_object_or_404(StudentParentInfo, pk=pk)
         parent.student.delete()
         return redirect('/admission/student/list/')
@@ -154,7 +150,6 @@ def teacher_edit(request, pk):
         teacher.country = request.POST.get('country')
         teacher.postal_code = request.POST.get('postal_code')
         teacher.save()
-        print('Birthday', teacher.date_of_birth)
         return redirect('/admission/teacher/list/', pk=teacher.pk)
     if request.method == "GET":
         teacher_set = TeacherInfo.objects.get(pk=pk)
@@ -177,7 +172,6 @@ def admin_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
-        print(request.POST)
         if user is not None:
             login(request, user)
             return redirect('/admission/homepage/')
@@ -216,7 +210,6 @@ def index(request):
 def student_marks(request):
     if request.method == "POST":
         student = StudentInfo.objects.get(id=int(request.POST['student_name']))
-        print(student)
         telugu = request.POST['telugu']
         hindi = request.POST['hindi']
         english = request.POST['english']
@@ -226,7 +219,6 @@ def student_marks(request):
         semester = request.POST['semester']
         obj_marks = Results.objects.create(student=student, telugu=telugu, hindi=hindi, english=english, maths=maths, science=science, social=social, semester=semester)
         obj_marks.save()
-        print(semester)
         return redirect('/admission/marks/list/')
     if request.method == 'GET':
         student_list = StudentInfo.objects.all()
@@ -239,8 +231,7 @@ def student_marks(request):
 def marks_list(request):
     if request.method == 'GET':
         marks_set = Results.objects.all()
-        marks = Results.objects.values('student_id').annotate(num_count=Count('student_id'))
-        print(marks)
+        # marks = Results.objects.values('student_id').annotate(num_count=Count('student_id'))
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
@@ -256,8 +247,6 @@ def student_marks_edit(request, pk):
         marks.science = request.POST.get('science')
         marks.social = request.POST.get('social')
         marks.semester = request.POST.get('semester')
-        print('sem', marks.semester)
-        print(request.POST)
         marks.save()
         return redirect('/admission/marks/list/')
     if request.method == "GET":
@@ -270,11 +259,9 @@ def student_marks_edit(request, pk):
 def student_filter(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(student__student_class=id)
-        query = Results.objects.values('student__first_name').count()
-        print('here we are',query)
+        # query = Results.objects.values('student__first_name').count()
         class_highest = []
         student_name = []
-        print("hello there")
         for num in marks_set:
             class_highest.append(num.total_marks())
             student_name.append(num.student.first_name)
