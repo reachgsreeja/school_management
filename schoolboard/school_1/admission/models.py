@@ -28,8 +28,7 @@ class StudentParentInfo(models.Model):
     postal_code = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.father_name + self.email_id
-
+        return self.father_name
 
 class TeacherInfo(models.Model):
     first_name = models.CharField(max_length=255)

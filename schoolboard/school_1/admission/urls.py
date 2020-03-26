@@ -19,5 +19,10 @@ urlpatterns =[
     path('student/marks/edit/<int:pk>/', views.student_marks_edit, name='student_edit'),
     path('marks/list/', views.marks_list, name='marks_list'),
     path('marks/list/<int:id>/', views.student_filter, name='student_filter'),
-
+    path('semester/quarterly/<int:id>/', views.semester_quarterly, name='semester_quarterly'),
+    path('semester/half_yearly/<int:id>/', views.semester_half_yearly, name='semester_half_yearly'),
+    path('semester/yearly/<int:id>/', views.semester_yearly, name='semester_yearly'),
+    path('quarterly/', views.quarterly, name='quarterly'),
+    path('half_yearly/', views.half_yearly, name='half_yearly'),
+    path('yearly/', views.yearly, name='yearly'),
 ]

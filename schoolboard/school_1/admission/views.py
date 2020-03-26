@@ -11,7 +11,8 @@ import datetime
 
 class ObjectDoesNotExist(Exception):
     """The requested object does not exist"""
-    silent_variable_failure = True
+    # silent_variable_failure = True
+    pass
 
 
 def welcome(request):
@@ -220,12 +221,12 @@ def student_marks(request):
         semester = request.POST.get('semester')
         academic_year = request.POST.get('academic_year')
         try:
-            print(f"student_id,semester, academic_year ---- {student_id},{semester}, {academic_year} ")
+            # print(f"student_id,semester, academic_year ---- {student_id},{semester}, {academic_year} ")
             Results.objects.get(student__acadamic_year=academic_year, student_id=student_id, semester=semester)
             context = {"error": "Student details exists with given data"}
             return render(request, 'student_marks_page.html', context)
 
-        except ObjectDoesNotExist:
+        except Exception as e:
             telugu = request.POST['telugu']
             hindi = request.POST['hindi']
             english = request.POST['english']
@@ -276,7 +277,6 @@ def student_marks_edit(request, pk):
 def student_filter(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(student__student_class=id)
-        # query = Results.objects.values('student__first_name').count()
         class_highest = []
         student_name = []
         for num in marks_set:
@@ -285,8 +285,45 @@ def student_filter(request, id):
         class_highest_score = dict(zip(student_name, class_highest))
         class_topper = max(class_highest_score, key=class_highest_score.get)
         class_topper_name = max(class_highest_score.values())
-
         context = {'marks_set': marks_set,
                    'class_topper': class_topper,
-                   'class_topper_name': class_topper_name}
+                   'class_topper_name': class_topper_name,
+                   'class': id}
+        return render(request, 'marks_list.html', context)
+
+def quarterly(request):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Quarterly Exam")
+        context = {'marks_set': marks_set}
+        return render(request, 'marks_list.html', context)
+
+def half_yearly(request):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Half Yearly Exam")
+        context = {'marks_set': marks_set}
+        return render(request, 'marks_list.html', context)
+
+def yearly(request):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Yearly Exam")
+        context = {'marks_set': marks_set}
+        return render(request, 'marks_list.html', context)
+
+def semester_quarterly(request, id):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Quarterly Exam", student__student_class=id)
+        context = {'marks_set': marks_set}
+        return render(request, 'marks_list.html', context)
+def semester_half_yearly(request, id):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Half Yearly Exam", student__student_class=id)
+        print(marks_set)
+        context = {'marks_set': marks_set}
+        return render(request, 'marks_list.html', context)
+
+def semester_yearly(request, id):
+    if request.method == 'GET':
+        marks_set = Results.objects.filter(semester="Yearly Exam", student__student_class=id)
+        print(marks_set)
+        context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
