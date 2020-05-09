@@ -124,6 +124,14 @@
                 </li>
                 <li>
                     <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
+                        <i class="icon-notebook menu-icon"></i><span class="nav-text">Student Attendance</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="navbar-link" href="/admission/student/attendance/">Student Attendance Sheet</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="{% static 'javascript:void()' %}" aria-expanded="false">
                         <i class="icon-notebook menu-icon"></i><span class="nav-text">Marks List</span>
                     </a>
                     <ul aria-expanded="false">
@@ -147,7 +155,7 @@
                         <li><a class="navbar-link" href="/admission/marks/list/9/">Class9</a></li>
                         <li><a class="navbar-link" href="/admission/marks/list/10/">Class10</a></li>
                         {% else %}
-                        <li><a href="/admission/login/">Sign In</a></li>
+                        <li><a href="/admission/login/"></a>Log In</li>
                         {% endif %}
                     </ul>
                 </li>

@@ -25,4 +25,5 @@ urlpatterns =[
     path('quarterly/', views.quarterly, name='quarterly'),
     path('half_yearly/', views.half_yearly, name='half_yearly'),
     path('yearly/', views.yearly, name='yearly'),
+    path('student/attendance/', views.student_attendance, name='attendance'),
 ]

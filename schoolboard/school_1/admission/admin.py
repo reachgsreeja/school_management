@@ -5,4 +5,5 @@ admin.site.register(StudentInfo)
 admin.site.register(StudentParentInfo)
 admin.site.register(TeacherInfo)
 admin.site.register(Results)
+admin.site.register(Student_Attendance)
 

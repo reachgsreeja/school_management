@@ -32,7 +32,7 @@ def stu_adm_form(request):
         student_image = request.FILES['student_image']
         fs = FileSystemStorage()
         file_name = fs.save(student_image.name, student_image)
-        url = fs.url(file_name)
+        # url = fs.url(file_name)
         student_set = StudentInfo.objects.create(first_name=first_name, last_name=last_name, student_class=student_class,
                                                  date_of_birth=date_of_birth, acadamic_year=acadamic_year, gender=gender,
                                                  student_image=student_image)
@@ -324,6 +324,42 @@ def semester_half_yearly(request, id):
 def semester_yearly(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Yearly Exam", student__student_class=id)
-        print(marks_set)
+        # print(marks_set)
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
+
+@login_required(login_url='/admission/login/')
+def student_attendance(request):
+    if request.method == "POST":
+        student = StudentInfo.objects.get(id=int(request.POST['student_name']))
+        student_id = request.POST.get('student_name')
+        Student_Attendance.objects.get(student_id=student_id)
+
+        monday = request.POST['monday']
+        tuesday = request.POST['tuesday']
+        wednesday = request.POST['wednesday']
+        thursday = request.POST['thursday']
+        friday = request.POST['friday']
+        saturday = request.POST['saturday']
+        attendance_percentage = request.POST['attendance_percentage']
+        stu_att = Student_Attendance.objects.create(student=student, monday=monday, tuesday=tuesday, wednesday=wednesday,
+                                     thursday=thursday, friday=friday, saturday=saturday, attendance_percentage=attendance_percentage)
+        stu_att.save()
+        return redirect('/admission/homepage/')
+
+    attendance = Student_Attendance.objects.all()
+    count_working = 0
+    count_holiday = 0
+    for attend in attendance:
+        if attend == 'present':
+            count_working += 1
+        if attend == 'holiday':
+            count_holiday += 1
+    no_of_days = len(attendance) - count_holiday
+    attendance_percentage = (count_working/no_of_days)*100
+    print((round(attendance_percentage, 2)),'%')
+
+    if request.method == "GET":
+        student_list = StudentInfo.objects.all()
+        context = {"student_list": student_list}
+        return render(request, 'student_attendance_sheet.html', context)
