@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.contrib import auth
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Count
@@ -122,7 +122,7 @@ def student_edit(request, pk):
         parent.save()
         return redirect('/admission/student/list/', pk=parent.pk)
     if request.method == 'GET':
-        parent_set = StudentParentInfo.objects.get(pk=pk)
+        parent_set = StudentParentInfo.objects.get(student_id=pk)
         context = {'parent_set': parent_set}
         return render(request, 'stu_edit.html', context)
     else:
@@ -221,7 +221,6 @@ def student_marks(request):
         semester = request.POST.get('semester')
         academic_year = request.POST.get('academic_year')
         try:
-            # print(f"student_id,semester, academic_year ---- {student_id},{semester}, {academic_year} ")
             Results.objects.get(student__acadamic_year=academic_year, student_id=student_id, semester=semester)
             context = {"error": "Student details exists with given data"}
             return render(request, 'student_marks_page.html', context)
@@ -248,8 +247,6 @@ def student_marks(request):
 def marks_list(request):
     if request.method == 'GET':
         marks_set = Results.objects.all()
-        # marks = Results.objects.values('student_id').annotate(num_count=Count('student_id'))
-        # print(marks)
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
@@ -291,41 +288,46 @@ def student_filter(request, id):
                    'class': id}
         return render(request, 'marks_list.html', context)
 
+@login_required(login_url='/admission/login/')
 def quarterly(request):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Quarterly Exam")
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
+@login_required(login_url='/admission/login/')
 def half_yearly(request):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Half Yearly Exam")
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
+@login_required(login_url='/admission/login/')
 def yearly(request):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Yearly Exam")
         context = {'marks_set': marks_set}
         return render(request, 'marks_list.html', context)
 
+@login_required(login_url='/admission/login/')
 def semester_quarterly(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Quarterly Exam", student__student_class=id)
-        context = {'marks_set': marks_set}
+        context = {'marks_set': marks_set, 'class':id}
         return render(request, 'marks_list.html', context)
+
+@login_required(login_url='/admission/login/')
 def semester_half_yearly(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Half Yearly Exam", student__student_class=id)
-        print(marks_set)
-        context = {'marks_set': marks_set}
+        context = {'marks_set': marks_set, 'class':id}
         return render(request, 'marks_list.html', context)
 
+@login_required(login_url='/admission/login/')
 def semester_yearly(request, id):
     if request.method == 'GET':
         marks_set = Results.objects.filter(semester="Yearly Exam", student__student_class=id)
-        # print(marks_set)
-        context = {'marks_set': marks_set}
+        context = {'marks_set': marks_set, 'class':id}
         return render(request, 'marks_list.html', context)
 
 @login_required(login_url='/admission/login/')
@@ -333,33 +335,45 @@ def student_attendance(request):
     if request.method == "POST":
         student = StudentInfo.objects.get(id=int(request.POST['student_name']))
         student_id = request.POST.get('student_name')
-        Student_Attendance.objects.get(student_id=student_id)
+        try:
+            Student_Attendance.objects.get(student_id=student_id)
+            context = {"error": "Student Attendance already entered for selected date. Please select a different date..!"}
+            return render(request, 'student_attendance_sheet.html', context)
+        except Exception as e:
+            date = request.POST['date']
+            telugu_class = request.POST['telugu_class']
+            hindi_class = request.POST['hindi_class']
+            english_class = request.POST['english_class']
+            maths_class = request.POST['maths_class']
+            science_class = request.POST['science_class']
+            social_class = request.POST['social_class']
+            stu_att = Student_Attendance.objects.create(student=student, date=date, telugu_class=telugu_class, hindi_class=hindi_class,
+                                                        english_class=english_class, maths_class=maths_class, science_class=science_class,social_class=social_class)
+            stu_att.save()
+            return redirect('/admission/homepage/')
 
-        monday = request.POST['monday']
-        tuesday = request.POST['tuesday']
-        wednesday = request.POST['wednesday']
-        thursday = request.POST['thursday']
-        friday = request.POST['friday']
-        saturday = request.POST['saturday']
-        attendance_percentage = request.POST['attendance_percentage']
-        stu_att = Student_Attendance.objects.create(student=student, monday=monday, tuesday=tuesday, wednesday=wednesday,
-                                     thursday=thursday, friday=friday, saturday=saturday, attendance_percentage=attendance_percentage)
-        stu_att.save()
-        return redirect('/admission/homepage/')
-
-    attendance = Student_Attendance.objects.all()
-    count_working = 0
-    count_holiday = 0
-    for attend in attendance:
-        if attend == 'present':
-            count_working += 1
-        if attend == 'holiday':
-            count_holiday += 1
-    no_of_days = len(attendance) - count_holiday
-    attendance_percentage = (count_working/no_of_days)*100
-    print((round(attendance_percentage, 2)),'%')
+            # attendance = Student_Attendance.objects.all()
+            # count_working_days = 0
+            # count_holidays = 0
+            # for attend in attendance:
+            #     if attend == 'present':
+            #         count_working_days += 1
+            #     if attend == 'holiday':
+            #         count_holidays += 1
+            # no_of_days = len(attendance) - count_holidays
+            # attendance_percentage = (count_working_days / no_of_days) * 100
+            # print((round(attendance_percentage, 2)), '%')
 
     if request.method == "GET":
         student_list = StudentInfo.objects.all()
         context = {"student_list": student_list}
         return render(request, 'student_attendance_sheet.html', context)
+
+@login_required(login_url='/admission/login/')
+def student_info_hyperlink(request, pk):
+    if request.method == 'GET':
+        parent_set = StudentParentInfo.objects.get(student_id=pk)
+        print('parent set info--->', parent_set)
+        context = {'parent_set': parent_set}
+        return render(request, 'student_info_hyperlink.html', context)
+

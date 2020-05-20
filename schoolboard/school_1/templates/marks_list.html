@@ -38,19 +38,11 @@
                                              style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(157px, 37px, 0px);">
                                              {% if class %}
                                              <a class="dropdown-item" href="/admission/semester/quarterly/{{class}}/">Quarterly Exam</a>
-                                             {% else %}
-                                             <a class="dropdown-item" href="/admission/quarterly/">Quarterly Exam</a>
-                                             {% endif %}
-
-                                             {% if class %}
                                              <a class="dropdown-item" href="/admission/semester/half_yearly/{{class}}/">Half Yearly Exam</a>
-                                             {% else %}
-                                             <a class="dropdown-item" href="/admission/half_yearly/">Half Yearly Exam</a>
-                                             {% endif %}
-
-                                             {% if class %}
                                              <a class="dropdown-item" href="/admission/semester/yearly/{{class}}/">Yearly Exam</a>
                                              {% else %}
+                                             <a class="dropdown-item" href="/admission/quarterly/">Quarterly Exam</a>
+                                             <a class="dropdown-item" href="/admission/half_yearly/">Half Yearly Exam</a>
                                              <a class="dropdown-item" href="/admission/yearly/">Yearly Exam</a>
                                              {% endif %}
                                         </div>
