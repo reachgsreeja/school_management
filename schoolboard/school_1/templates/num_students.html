@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Student Data Table</h4>
+                        <h4 class="card-title">Number Of Students In School</h4>
                         <div class="table-responsive">
                             <div id="DataTables_Table_0_wrapper"
                                  class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -25,12 +25,12 @@
                                                     aria-label="First Name: activate to sort column descending"
                                                     style="width: 134px;">First Name
                                                 </th>
-                                                <th tabindex="0"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Last Name: activate to sort column descending"
-                                                    style="width: 134px;">Last Name
-                                                </th>
+<!--                                                <th tabindex="0"-->
+<!--                                                    rowspan="1"-->
+<!--                                                    colspan="1"-->
+<!--                                                    aria-label="Last Name: activate to sort column descending"-->
+<!--                                                    style="width: 134px;">Last Name-->
+<!--                                                </th>-->
                                                 <th tabindex="0"
                                                     rowspan="1"
                                                     colspan="1"
@@ -43,13 +43,13 @@
                                                     aria-label="Student Class: activate to sort column ascending"
                                                     style="width: 221px;">Student Class
                                                 </th>
-                                                <th tabindex="0"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Acadmic Year: activate to sort column ascending"
-                                                    style="width: 97px;">Acadamic Year
+<!--                                                <th tabindex="0"-->
+<!--                                                    rowspan="1"-->
+<!--                                                    colspan="1"-->
+<!--                                                    aria-label="Acadmic Year: activate to sort column ascending"-->
+<!--                                                    style="width: 97px;">Acadamic Year-->
 
-                                                </th>
+<!--                                                </th>-->
                                                 <th tabindex="0"
                                                     rowspan="1"
                                                     colspan="1"
@@ -62,12 +62,12 @@
                                                     aria-label="Phone: activate to sort column ascending"
                                                     style="width: 74px;">Phone
                                                 </th>
-                                                <th tabindex="0"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="City: activate to sort column descending"
-                                                    style="width: 134px;">City
-                                                </th>
+<!--                                                <th tabindex="0"-->
+<!--                                                    rowspan="1"-->
+<!--                                                    colspan="1"-->
+<!--                                                    aria-label="City: activate to sort column descending"-->
+<!--                                                    style="width: 134px;">City-->
+<!--                                                </th>-->
                                                 <th tabindex="0"
                                                     rowspan="1"
                                                     colspan="1"
@@ -85,14 +85,14 @@
                                             <tbody>
                                             {% for parent in parent_set %}
                                             <tr>
-                                                <td>{{parent.student.first_name}}</td>
-                                                <td>{{parent.student.last_name}}</td>
+                                                <td><a href="http://127.0.0.1:8000/admission/student/info/{{parent.student.id}}/" target="_blank">{{parent.student.first_name}}</a></td>
+<!--                                                <td>{{parent.student.last_name}}</td>-->
                                                 <td>{{parent.student.gender}}</td>
                                                 <td>{{parent.student.student_class}}</td>
-                                                <td>{{parent.student.acadamic_year}}</td>
+<!--                                                <td>{{parent.student.acadamic_year}}</td>-->
                                                 <td>{{parent.father_name}}</td>
                                                 <td>{{parent.contact_info}}</td>
-                                                <td>{{parent.city}}</td>
+<!--                                                <td>{{parent.city}}</td>-->
                                                 <td><a href="/admission/student/edit/{{parent.student.id}}/">Edit </a> </td>
                                                 <td><button type="button" onclick="deleteUser({{parent.student.id}})">Delete</button></td>
                                             </tr>
