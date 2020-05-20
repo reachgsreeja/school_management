@@ -26,4 +26,5 @@ urlpatterns =[
     path('half_yearly/', views.half_yearly, name='half_yearly'),
     path('yearly/', views.yearly, name='yearly'),
     path('student/attendance/', views.student_attendance, name='attendance'),
+    path('student/info/<int:pk>/', views.student_info_hyperlink, name='student_info_hyperlink'),
 ]

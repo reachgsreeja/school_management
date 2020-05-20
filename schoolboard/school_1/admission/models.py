@@ -74,14 +74,13 @@ class Student_Attendance(models.Model):
         ('holiday', 'Holiday'),
     )
     student = models.ForeignKey(StudentInfo, on_delete=models.CASCADE)
-    monday = models.CharField(max_length=50, choices=attendance_choices)
-    tuesday = models.CharField(max_length=50, choices=attendance_choices)
-    wednesday = models.CharField(max_length=50, choices=attendance_choices)
-    thursday = models.CharField(max_length=50, choices=attendance_choices)
-    friday = models.CharField(max_length=50, choices=attendance_choices)
-    saturday = models.CharField(max_length=50, choices=attendance_choices)
-    attendance_percentage = models.CharField(max_length=50)
+    date = models.DateField()
+    telugu_class = models.CharField(max_length=50, choices=attendance_choices)
+    hindi_class = models.CharField(max_length=50, choices=attendance_choices)
+    english_class = models.CharField(max_length=50, choices=attendance_choices)
+    maths_class = models.CharField(max_length=50, choices=attendance_choices)
+    science_class = models.CharField(max_length=50, choices=attendance_choices)
+    social_class = models.CharField(max_length=50, choices=attendance_choices)
 
     def __str__(self):
         return self.student.first_name + self.attendance_percentage
-
