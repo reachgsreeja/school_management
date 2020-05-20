@@ -1,10 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<!--<h3 align="center">STUDENT REGISTRATION FORM</h3>-->
+
+
+<form method="GET" class="post-form" action="/admission/student/info/{{parent_set.id}}/"/>
+{% csrf_token %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Student Edit Page</h4>
+                    <div class="form-validation">
+                        <form class="form-valide" action="#" method="post" novalidate="novalidate">
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-lg-4 col-form-label" for="student_image">Student Profile-->
+<!--                                    Photo<span-->
+<!--                                            class="text-danger">*</span>-->
+<!--                                </label>-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    Select image to upload:-->
+<!--                                    <input type="file" name="student_image" id="student_image">-->
+<!--                                    <img src="{{student_image.url}}">-->
+<!--                                    &lt;!&ndash;                                        <button type="submit" name="submit">Upload File</button>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="first_name">First Name <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="first_name"
+                                           name="first_name" value="{{parent_set.student.first_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="last_name">Last Name <span
+                                        class="text-danger"></span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                           value="{{parent_set.student.last_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="gender">Gender
+                                </label>
+                                <div class="col-lg-6">
+                                    {% if parent_set.student.gender == "Male" %}
+                                    <label class="radio-inline mr-3">
+                                        <input type="radio" id="gender" name="gender" value="Male"
+                                               checked/>Male</label>
+                                    <label class="radio-inline mr-3">
+                                        <input type="radio" id="gender" name="gender" value="Female"/>Female</label>
+                                    {% else %}
+                                    <label class="radio-inline mr-3">
+                                        <input type="radio" id="gender" name="gender" value="Male"/>Male</label>
+                                    <label class="radio-inline mr-3">
+                                        <input type="radio" id="gender" name="gender" value="Female"
+                                               checked/>Female</label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="date_of_birth">Date of Birth<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="date" class="form-control" id="date_of_birth"
+                                           name="date_of_birth" value="{{parent_set.student.date_of_birth|date:'Y-m-d'}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="student_class">Student Class<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="student_class"
+                                           name="student_class" value="{{parent_set.student.student_class}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="acadamic_year">Acadamic Year<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control" id="acadamic_year"
+                                           name="acadamic_year" value="{{parent_set.student.acadamic_year}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="father_name">Father Name <span
+                                        class="text-danger"></span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="father_name"
+                                           name="father_name" value="{{parent_set.father_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="mother_name">Mother Name <span
+                                        class="text-danger"></span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="mother_name"
+                                           name="mother_name" value="{{parent_set.mother_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="contact_info">Phone<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="contact_info"
+                                           name="contact_info" value="{{parent_set.contact_info}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="email_id">Email <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="email_id" name="email_id"
+                                           value="{{parent_set.email_id}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="address1">Address1<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <textarea class="form-control" id="address1" name="address1" rows="5"> {{parent_set.address1}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="address2">Address2<span
+                                        class="text-danger"></span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <textarea class="form-control" id="address2" name="address2" rows="5">{{parent_set.address2}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="city">City<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="city" name="city"
+                                           value="{{parent_set.city}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="state">State <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="state" name="state"
+                                           value="{{parent_set.state}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="country_code">Country<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="country_code"
+                                           name="country_code" value="{{parent_set.country_code}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="postal_code">Pin Code
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="postal_code"
+                                           name="postal_code" value="{{parent_set.postal_code}}">
+                                </div>
+                            </div>
+<!--                            <div class="rounded-button">-->
+<!--                                <div class="col-lg-8 ml-auto">-->
+<!--                                    <button type="submit" class="btn mb-1 btn-rounded btn-success">Update</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}

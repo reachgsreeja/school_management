@@ -8,28 +8,60 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Weekly Student Attendance Sheet</h4>
+                        <h4 class="card-title">Student Attendance Sheet</h4>
+                        {% if error %}
+                        <div class="card-content">
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span>
+                                </button>
+                                <strong>Error!</strong> {{error}}
+                            </div>
+                        </div>
+                        {% endif %}
                         <div class="form-validation">
                             <form class="form-valide" action="#" method="post" novalidate="novalidate">
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="student_name">Student<span
+                                    <label class="col-lg-4 col-form-label" for="student_name">Student Name<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control" name="student_name" id="student_name">
                                             <option>Select Student</option>
                                             {% for student in student_list %}
-                                            <option value="{{student.id}}">{{student.first_name}} {{student.last_name}} {{student.student_class}}</option>
+                                            <option value="{{student.id}}">{{student.first_name}}
+                                                {{student.last_name}}
+                                            </option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                 </div>
+                                <!--                                <div class="form-group row">-->
+                                <!--                                    <label class="col-lg-4 col-form-label" for="student_name">Student Class<span-->
+                                <!--                                            class="text-danger">*</span>-->
+                                <!--                                    </label>-->
+                                <!--                                    <div class="col-lg-6">-->
+                                <!--                                        <select class="form-control" name="student_name" id="student_name">-->
+                                <!--                                            <option>Select Student</option>-->
+                                <!--                                            {% for student in student_list %}-->
+                                <!--                                            <option value="{{student.id}}">{{student.student_class}}</option>-->
+                                <!--                                            {% endfor %}-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="monday">Monday<span
+                                    <label class="col-lg-4 m-t-20" for="date">Date<span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="date" class="form-control" id="date" name="date" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="telugu_class">Telugu Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="monday" name="monday" required>
+                                        <select class="form-control" id="telugu_class" name="telugu_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -38,11 +70,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="tuesday">Tuesday<span
+                                    <label class="col-lg-4 col-form-label" for="hindi_class">Hindi Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="tuesday" name="tuesday" required>
+                                        <select class="form-control" id="hindi_class" name="hindi_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -51,11 +83,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="wednesday">Wednesday<span
+                                    <label class="col-lg-4 col-form-label" for="english_class">English Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="wednesday" name="wednesday" required>
+                                        <select class="form-control" id="english_class" name="english_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -64,11 +96,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="thursday">Thursday<span
+                                    <label class="col-lg-4 col-form-label" for="maths_class">Maths Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="thursday" name="thursday" required>
+                                        <select class="form-control" id="maths_class" name="maths_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -77,11 +109,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="friday">Friday<span
+                                    <label class="col-lg-4 col-form-label" for="science_class">Science Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="friday" name="friday" required>
+                                        <select class="form-control" id="science_class" name="science_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -90,11 +122,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="saturday">Saturday<span
+                                    <label class="col-lg-4 col-form-label" for="social_class">Social Class<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="saturday" name="saturday" required>
+                                        <select class="form-control" id="social_class" name="social_class" required>
                                             <option>Select Attendance</option>
                                             <option>Present</option>
                                             <option>Absent</option>
@@ -102,18 +134,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="attendance_percentage">Attendance Percentage<span
-                                            class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="attendance_percentage"
-                                               name="attendance_percentage" placeholder="Percentage.." required>
-                                    </div>
-                                </div>
+                                <!--                                <div class="form-group row">-->
+                                <!--                                    <label class="col-lg-4 col-form-label" for="attendance_percentage" id="attendance_percentage">Attendance Percentage<span-->
+                                <!--                                            class="text-danger">*</span>-->
+                                <!--                                    </label>-->
+                                <!--                                    <div class="col-lg-8 ml-auto">-->
+                                <!--                                        <button type="button" onClick="calculate()">Calculate</button>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="rounded-button">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn mb-1 btn-rounded btn-success">Save Attendance</button>
+                                        <button type="submit" class="btn mb-1 btn-rounded btn-success">Save Attendance
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -124,4 +156,30 @@
         </div>
     </div>
 </form>
+
+<!--<script>-->
+<!--    function calculate() {-->
+<!--        var a = parseInt(document.getElementById("telugu_class").value);-->
+<!--        var b = parseInt(document.getElementById("hindi_class").value);-->
+<!--        var c = parseInt(document.getElementById("english_class").value);-->
+<!--        var d = parseInt(document.getElementById("maths_class").value);-->
+<!--        var e = parseInt(document.getElementById("science_class").value);-->
+<!--        var f = parseInt(document.getElementById("social_class").value);-->
+<!--        var list = [a, b, c, d, e, f];-->
+<!--        var count_working_days = 0;-->
+<!--        var count_holidays = 0;-->
+<!--        var x;-->
+<!--        for (x in list) {-->
+<!--            if (x == "Present") {-->
+<!--                count_working_days ++ 1; }-->
+<!--            if (x == "Holiday") {-->
+<!--                count_holidays ++ 1; }-->
+<!--        }-->
+<!--        var len = list.length;-->
+<!--        var no_of_days = len - count_holidays;-->
+<!--        var percentage = (count_working_days/no_of_days)*100;-->
+<!--        document.getElementById("attendance_percentage").innerHTML = "Student Attendance Percentage is "+percentage;-->
+<!--    }-->
+
+<!--</script>-->
 {% endblock %}
